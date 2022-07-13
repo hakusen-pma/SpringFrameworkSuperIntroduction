@@ -1,0 +1,1 @@
+SELECT setval('quiz_id_seq',6,false);
