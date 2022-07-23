@@ -57,7 +57,7 @@ class QuizControllerTest {
         // quizFormの初期値チェック
         MvcResult result = this.mockMvc.perform(get("/quiz")).andReturn();
         QuizForm resultForm = (QuizForm) result.getModelAndView().getModel().get("quizForm");
-        assertEquals(resultForm.getAnswer() ,true);
+        assertEquals(true, resultForm.getAnswer());
     }
 
     @Test
@@ -80,7 +80,7 @@ class QuizControllerTest {
         // quizFormの初期値チェック
         MvcResult result = this.mockMvc.perform(get("/quiz")).andReturn();
         QuizForm resultForm = (QuizForm) result.getModelAndView().getModel().get("quizForm");
-        assertEquals(resultForm.getNewQuiz(),true);
+        assertEquals(true, resultForm.getNewQuiz());
     }
 
     @Test
@@ -106,7 +106,7 @@ class QuizControllerTest {
         QuizForm resultForm = (QuizForm) result.getModelAndView().getModel().get("quizForm");
         validator.validate(resultForm, this.bindingResult);
 
-        assertEquals(resultForm.getNewQuiz(),true);
+        assertEquals(true, resultForm.getNewQuiz());
         assertTrue(this.bindingResult.hasErrors());
         assertEquals(2, this.bindingResult.getFieldErrors().size());
         assertEquals("{0}が未入力です。",
@@ -139,10 +139,10 @@ class QuizControllerTest {
 
         MvcResult result1 = this.mockMvc.perform(get("/quiz/5")).andReturn();
         QuizForm resultForm1 = (QuizForm) result1.getModelAndView().getModel().get("quizForm");
-        assertEquals(resultForm1.getId(),5);
-        assertEquals(resultForm1.getQuestion(),"クイズ１");
-        assertEquals(resultForm1.getAnswer(),true);
-        assertEquals(resultForm1.getAuthor(),"クイズ太郎");
+        assertEquals(5, resultForm1.getId());
+        assertEquals("クイズ１", resultForm1.getQuestion());
+        assertEquals(true, resultForm1.getAnswer());
+        assertEquals("クイズ太郎", resultForm1.getAuthor());
 
         // データが取得できなかった場合（リクエストのformを返却）
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
@@ -157,10 +157,10 @@ class QuizControllerTest {
                 .andExpect(request().attribute("id", is(50))).andReturn();
 
         QuizForm resultForm2 = (QuizForm) result2.getModelAndView().getModel().get("quizForm");
-        assertEquals(resultForm2.getId(),50);
-        assertEquals(resultForm2.getQuestion(),"あ");
-        assertEquals(resultForm2.getAnswer(),false);
-        assertEquals(resultForm2.getAuthor(),"い");
+        assertEquals(50, resultForm2.getId());
+        assertEquals("あ", resultForm2.getQuestion());
+        assertEquals(false, resultForm2.getAnswer());
+        assertEquals("い", resultForm2.getAuthor());
     }
 
     @Test
@@ -168,14 +168,14 @@ class QuizControllerTest {
         MvcResult result = this.mockMvc.perform(get("/quiz/5")).andReturn();
 
         QuizForm resultForm = (QuizForm) result.getModelAndView().getModel().get("quizForm");
-        assertEquals(resultForm.getId(),5);
-        assertEquals(resultForm.getQuestion(),"クイズ１");
-        assertEquals(resultForm.getAnswer(),true);
-        assertEquals(resultForm.getAuthor(),"クイズ太郎");
-        assertEquals(resultForm.getNewQuiz(),false);
+        assertEquals(5, resultForm.getId());
+        assertEquals("クイズ１", resultForm.getQuestion());
+        assertEquals(true, resultForm.getAnswer());
+        assertEquals("クイズ太郎", resultForm.getAuthor());
+        assertEquals(false, resultForm.getNewQuiz());
 
         String resultTitle = (String) result.getModelAndView().getModel().get("title");
-        assertEquals(resultTitle, "更新用フォーム");
+        assertEquals("更新用フォーム", resultTitle);
     }
 
     @Test
@@ -198,10 +198,10 @@ class QuizControllerTest {
                 this.bindingResult.getFieldErrors("question").get(0).getDefaultMessage());
         assertEquals("{0}が未入力です。",
                 this.bindingResult.getFieldErrors("author").get(0).getDefaultMessage());
-        assertEquals(resultForm1.getId(),99);
-        assertEquals(resultForm1.getQuestion(),"");
-        assertEquals(resultForm1.getAnswer(),false);
-        assertEquals(resultForm1.getAuthor(),"");
+        assertEquals(99, resultForm1.getId());
+        assertEquals("", resultForm1.getQuestion());
+        assertEquals(false, resultForm1.getAnswer());
+        assertEquals("", resultForm1.getAuthor());
 
         // 正常
         MultiValueMap<String, String> params2 = new LinkedMultiValueMap<>();
@@ -218,10 +218,10 @@ class QuizControllerTest {
 
         MvcResult result2 = this.mockMvc.perform(get("/quiz/" + params2.get("id").get(0))).andDo(print()).andReturn();
         QuizForm resultForm2 = (QuizForm) result2.getModelAndView().getModel().get("quizForm");
-        assertEquals(resultForm2.getId(),5);
-        assertEquals(resultForm2.getQuestion(),"クイズ１更新");
-        assertEquals(resultForm2.getAnswer(),false);
-        assertEquals(resultForm2.getAuthor(),"クイズ太郎更新");
+        assertEquals(5, resultForm2.getId());
+        assertEquals("クイズ１更新", resultForm2.getQuestion());
+        assertEquals(false, resultForm2.getAnswer());
+        assertEquals("クイズ太郎更新", resultForm2.getAuthor());
     }
 
     @Test
@@ -234,10 +234,10 @@ class QuizControllerTest {
         // メソッド呼び出し
         Quiz quiz = (Quiz) method.invoke(quizController, quizForm);
         // 結果をアサーション
-        assertEquals(quiz.getId(),100);
-        assertEquals(quiz.getQuestion(),"hoge");
-        assertEquals(quiz.getAnswer(),true);
-        assertEquals(quiz.getAuthor(),"huga");
+        assertEquals(100, quiz.getId());
+        assertEquals("hoge", quiz.getQuestion());
+        assertEquals(true, quiz.getAnswer());
+        assertEquals("huga", quiz.getAuthor());
     }
 
     @Test
@@ -250,11 +250,11 @@ class QuizControllerTest {
         // メソッド呼び出し
         QuizForm quizForm = (QuizForm) method.invoke(quizController, quiz);
         // 結果をアサーション
-        assertEquals(quizForm.getId(),100);
-        assertEquals(quizForm.getQuestion(),"hoge");
-        assertEquals(quizForm.getAnswer(),true);
-        assertEquals(quizForm.getAuthor(),"huga");
-        assertEquals(quizForm.getNewQuiz(),null);
+        assertEquals(100, quizForm.getId());
+        assertEquals("hoge", quizForm.getQuestion());
+        assertEquals(true, quizForm.getAnswer());
+        assertEquals("huga", quizForm.getAuthor());
+        assertEquals(null, quizForm.getNewQuiz());
     }
 
     @Test
